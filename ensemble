@@ -71,7 +71,15 @@
       plt.show()
       
       
-      
+   - 앙상블 부스팅 (ensemble boosting)
+    배깅은 여러개의 단일 모델을 만든후 boostrap 과정으로 데이터를 랜덤으로 추출한 뒤 모델 훈련 그리고 voting과정을 통해 데이터 예측
+    부스팅은 가중치를 부여하여 틀린 부분을 더 잘 맞출 수 있도록 하는 것
+    부스팅은 배깅과 유사하게 초기 샘플 데이터를 뽑아내고 다수의 분류기를 생성한다, 훈련 과정에서 앞 모델이 틀렸던 부분을 가중치 부여하며 진행
+    약검출기(week classifier)들을 여러개 모아 강검출기(strong classifier)생성
+    다음 단계의 week classifier는 이전 단계의 weak classifier의 영향을 받게 되고 이전의 양상을 본 뒤 잘 맞출 수 있는 방향으로 다음 단계 진행하며 weight 업데이트
+    최종적으로 strong classifier 생성
+    
+    
       
       
       
