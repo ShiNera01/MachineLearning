@@ -22,3 +22,85 @@
       from sklearn.ensemble import RandomForestClassifier
       from sklearn.model_selection import train_test_split
       from sklearn.metrics import accuracy_score
+      
+      
+      
+      kaggle의 타이타닉 활용
+        
+        y = titanic_df['Survived']
+        x = titanic_df.drop['Survived', axis = 1]
+        
+        x_train, x_test, y_train, y_test = train_test_split(x,y, test_size = 0.2, random_state = 10)
+        rf.fit(x_train, y_train)
+        pred = rf.predict(x_test)
+        print("정확도 : {0:.3f}".format(accuracy_score(y_test, pred)))
+        
+        
+      랜덤 포레스트의 하이퍼 파라미터
+      
+      n_estimator : 결정 트리의 개수. default = 10
+      max_features : 데이터의 feature를 참조할 비율, 개수를 뜻한다. default = auto
+      max_depth : 트리의 깊이
+      min_samples_leaf : 리프노드가 되기 위한 최소한의 샘플 데이터 개수
+      min_samples_split : 노드를 분할하기 위한 최소한의 데이터 개수
+      
+      grid search는 key, value 쌍의 데이터를 입력 받아 key값에 해당하는 파라미터의 값 튜닝
+      rf_param_grid = {
+      'n_estimators' : [100, 200],
+      'max_depth' : [6,8,10,12] ,
+      'min_samples_leaf' : [3,5,7,10]
+      'min_samples_split' : [2,3,5,10]
+      }
+      
+      rf_grid = GridSearchcv(rf, param_grid = rf_param_grid, scoring = "accuracy", n_jobs = -1, verbose = 1)\
+      rf_grid.fit(x_train, y_train)
+      
+      rf_grid.best_score_  #최고의 평균 정확도
+      rf_grid.best_params_ #최고의 파라미터
+      
+      cv_result_df.sort_values(by = ['rank_test_score'], inplace = True)
+      cv_result_df[['params', 'mean_test_score', 'rank_test_score']].head(10)
+      
+      feature_importances = model.feature_importances_
+      ft_importances = pd.Series(feature_importances, index = x_train.columns)
+      ft_importances = ft_importances.sort_values(ascending = False)
+      
+      plt.figure(figsize = (12,10))
+      plt.title("feature importances")
+      sns.barplot(x = ft_importances, y = x_train.columns)
+      plt.show()
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
