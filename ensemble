@@ -6,3 +6,19 @@
       최종적으로  voting을 통해 데이터에 대한 예측을 수행
       
       ![image](https://user-images.githubusercontent.com/37740450/120281113-82aab880-c2f3-11eb-813d-0c16432e3f7e.png)
+      
+      
+      랜덤 포레스트는 각각의 classifier를 가지고 훈련 하지만 학습하는 dataset은 original dataset 에서 sampling하여 가지고 온다. 이 과정을 부트스트래핑(bootstraping)이라고 한다
+      각 bootstrap은 데이터가 중복될 수 있으며 내부적으로도 데이터가 중복 될 수 있다.
+      
+      scikit learn의 ensemble패키지로 이용
+      
+      import pandas as pd
+      import numpy as np
+      import matplotlib.pyplot asplt
+      import seaborn as sns
+      
+      from sklearn.tree import DecisionTreeClassifier
+      from sklearn.ensemble import RandomForestClassifier
+      from sklearn.model_selection import train_test_split
+      from sklearn.metrics import accuracy_score
