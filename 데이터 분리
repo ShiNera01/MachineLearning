@@ -1,0 +1,18 @@
+1. train data and validation data
+  - training 과정에서 모델이 잘 학습되고 있는지 중간 평가를 해야한다.
+    train data로 training을 진행하고 중간 평가 하는 데이터를 validation data라고 한다.
+    
+2. test data
+  - 최종적으로 모델이 한 번도 보지 못한 데이터에 대해 평가 해야하는데 이 것을 test data로 하는 것.
+    모델의 평가 지표가 된다.
+    
+    
+일반적으로 사이킷런에서는 train_test_split을 통해 데이터를 분리
+
+train.csv에서의 데이터를 분리하여
+x_train, y_train은 train data
+x_test, y_test는 validation data
+
+test.csv 의 데이터는 test data
+
+x 는 보통 값을 결정하는 features.
