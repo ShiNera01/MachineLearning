@@ -1,0 +1,8 @@
+머신러닝 앙상블
+  - bagging, voting, boosting
+  
+  - 랜덤 포레스트 (random forest)
+      랜덤 포레스트는 결정 트리(decision tree)를 기반하여 만들어졌다. 여러 개의 결정 트리 classifier가 생성되고 데이터를 각자 방식으로 sampling하여 개별적인 학습
+      최종적으로  voting을 통해 데이터에 대한 예측을 수행
+      
+      ![image](https://user-images.githubusercontent.com/37740450/120280818-25166c00-c2f3-11eb-9cde-9e91b58a5cd1.png)
