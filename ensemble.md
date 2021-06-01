@@ -155,26 +155,104 @@
       
       
       
+  Gradient Boosting의 문제점
+    - 부스팅은 강력한 모델이지만 느리고 overfitting 문제가 있다.
+    
+    
+  Xgboost
+    - gbm보다 빠르다.
+    - overfitting 방지가 가능한 규제가 포함
+    - CART (Classification And Regression Tree)를 기반
+    
+    - 조기 종료(early stopping) 제공
+    - Gradient Boost 기반
+        앙상블 부스팅의 특징인 가중치 부여를 경사하강법으로 한다.
       
       
       
+    from xgboost import plot_importance
+    from xgboost import XGBClassifier
+    
+    xgboost의 하이퍼파라미터
+    - n_estimators(or num_boost_round) : 결정 트리의 개수
+    - max_depth : 트리의 깊이
+    - colsample_bytree : 컬럼의 샘플링 비율 (random forest의 max_features와 비슷)
+    - subsample : weak learner가 학습에 사용하는 데이터 샘플링 비율
+    - learning_rate : 학습률
+    - min_split_loss : 리프 노드를 추가적으로 나눌지 결정하는 값
+    - reg_lambda : L2 규제
+    - reg_alpha : L1 규제
+    
+    xgb = XGBClassifier()
+    
+    xgb_param_grid = {
+    
+    
+    
+    }
       
+    xgb_grid = GridSearchCV(grid, param_grid = xgb_param_grid, scoring = "accuracy", n_jobs = -1, verbose = 1)
+    xgb_grid.fit(x_train, y_train)
+    
+    xgb_grid.best_score_  #최고 평균 정확도
+    xgb_grid.best_params_ #최고의 파라미터
       
+    cv_result_df = pdDataFrame(xgb_grid.cv_results_)
+    cv_result_df.sort_values(by = ['rank_test_score'], inplace = True)
+    
+    cv_result_df[['params', 'mean_test_score', 'rank_test_score']].head(10)
+    
+    
+    
+    - xgboost는 조기 종료 (early stopping)기능을 제공
+    성능이 좋아지지 않는 모델을 불필요하게 학습 시키는 것을 방지하고 최고의 모델을 뽑도록
+    
+    xgb = XGBClassifier(n_estimators = 400, learning_rate = 0.1, max_depth = 3)
+    evals = [(x_test, y_test)]
+    xgb.fit(x_train, y_train, early_stopping_rounds = 100, eval_metric = "logloss", eval_set = evals, verbose = 1)
+    
+    fig, ax = plt.subplots()
+    plot_importance(xgb, ax = ax)
+    
+    
+   LightGBM 
+   - boosting 알고리즘인 xgboost는 굉장히 좋은 성능을 보여주었지만 여전히 학습시간이 느리다.
+   - 더불어 하이퍼파라미터도 많다.
+   - grid search로 튜닝하면 시간은 더 오래 걸림
+   - LightGBM은 대용량 데이터 처리가 가능하고, 다른 모델들보다 더 적은 자원을 사용하며 빠르다, GPU도 지원
+   - 너무 적은 수 사용하면 overfitting 문제
+
+    ![image](https://user-images.githubusercontent.com/37740450/120297148-c73e5000-c303-11eb-9a88-e370d29fdd76.png)
+    
+   - lightgbm은 leaf wise(리프 중심) 트리 분할 사용
+   - 기존 트리들은 tree depth 줄이기 위해 level wise(균형 트리) 분할 사용.
+   - level-wise 트리 분석은 균형을 잡아ㅏ주어야 하기 때문에 tree의 depth가 줄어든다. 균형을 잡아주기 위한 연산이 추가된다.
+   - lightgbm 트리의 균형은 맞추지 않고 리프 노드를 지속적으로 분할하면서 진행
+   - 이 리프 노드를 max delta loss 값을 가지는 리프 노드를 계속 분할해간다. 비대칭적이고 깊은 트리가 생성되지만 동일한 leaf를 생성할 때 leaf-wise는
+   - level-wise 보다 손실을 줄일 수 있다.
+   
+   n_estimators : 반복하려는 트리의 개수
+   learning_rate : 학습률
+   max_depth : 트리의 최대 깊이
+   min_child_samples: 리프 노드가 되기 위한 최소한의 샘플 데이터 개수
+   num_leaves : 하나의 트리가 가질 수 있는 최대 리프 개수
+   feature_fraction :트리를 학습할 때마다 선택하는 feature의 비율
+   reg_lambda : L2 regularization
+   reg_alpha : L1 regularization
       
+   
+   from lightbgm import LGBMClassifier, plot_importance
+   lgb = LGBMClassifier(n_estimators = 400)
+   lgb.fit(x_train, y_train)
+   lgb_pred = lgb.predict(x_test)
+   metrics(y_test, lgb_pred)
+   
+   lgb = LGBMClassifier(n_estimators = 400)
+   evals = [(x_test, y_test)]
+   lgb.fit(x_train, y_train, early_stopping_rounds = 100, eval_metric = "logloss", eval_set = evals, verbose =True)
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+   fig, ax = plt.subplots(figsize = (10, 6))
+   plot_importance(lgb, ax = ax)
       
       
       
