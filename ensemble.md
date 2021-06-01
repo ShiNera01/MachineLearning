@@ -80,7 +80,7 @@
     최종적으로 strong classifier 생성
     
     
-    ![image](https://user-images.githubusercontent.com/37740450/120288697-79bde500-c2fb-11eb-82bd-63cded191d29.png)
+   ![image](https://user-images.githubusercontent.com/37740450/120288697-79bde500-c2fb-11eb-82bd-63cded191d29.png)
     
     
    - ensemble boosting - Adaboost
@@ -222,7 +222,7 @@
    - LightGBM은 대용량 데이터 처리가 가능하고, 다른 모델들보다 더 적은 자원을 사용하며 빠르다, GPU도 지원
    - 너무 적은 수 사용하면 overfitting 문제
 
-    ![image](https://user-images.githubusercontent.com/37740450/120297148-c73e5000-c303-11eb-9a88-e370d29fdd76.png)
+   ![image](https://user-images.githubusercontent.com/37740450/120297148-c73e5000-c303-11eb-9a88-e370d29fdd76.png)
     
    - lightgbm은 leaf wise(리프 중심) 트리 분할 사용
    - 기존 트리들은 tree depth 줄이기 위해 level wise(균형 트리) 분할 사용.
@@ -231,28 +231,28 @@
    - 이 리프 노드를 max delta loss 값을 가지는 리프 노드를 계속 분할해간다. 비대칭적이고 깊은 트리가 생성되지만 동일한 leaf를 생성할 때 leaf-wise는
    - level-wise 보다 손실을 줄일 수 있다.
    
-   n_estimators : 반복하려는 트리의 개수
-   learning_rate : 학습률
-   max_depth : 트리의 최대 깊이
-   min_child_samples: 리프 노드가 되기 위한 최소한의 샘플 데이터 개수
-   num_leaves : 하나의 트리가 가질 수 있는 최대 리프 개수
-   feature_fraction :트리를 학습할 때마다 선택하는 feature의 비율
-   reg_lambda : L2 regularization
-   reg_alpha : L1 regularization
+     n_estimators : 반복하려는 트리의 개수
+     learning_rate : 학습률
+     max_depth : 트리의 최대 깊이
+     min_child_samples: 리프 노드가 되기 위한 최소한의 샘플 데이터 개수
+     num_leaves : 하나의 트리가 가질 수 있는 최대 리프 개수
+     feature_fraction :트리를 학습할 때마다 선택하는 feature의 비율
+     reg_lambda : L2 regularization
+     reg_alpha : L1 regularization
       
    
-   from lightbgm import LGBMClassifier, plot_importance
-   lgb = LGBMClassifier(n_estimators = 400)
-   lgb.fit(x_train, y_train)
-   lgb_pred = lgb.predict(x_test)
-   metrics(y_test, lgb_pred)
-   
-   lgb = LGBMClassifier(n_estimators = 400)
-   evals = [(x_test, y_test)]
-   lgb.fit(x_train, y_train, early_stopping_rounds = 100, eval_metric = "logloss", eval_set = evals, verbose =True)
-      
-   fig, ax = plt.subplots(figsize = (10, 6))
-   plot_importance(lgb, ax = ax)
+     from lightbgm import LGBMClassifier, plot_importance
+     lgb = LGBMClassifier(n_estimators = 400)
+     lgb.fit(x_train, y_train)
+     lgb_pred = lgb.predict(x_test)
+     metrics(y_test, lgb_pred)
+
+     lgb = LGBMClassifier(n_estimators = 400)
+     evals = [(x_test, y_test)]
+     lgb.fit(x_train, y_train, early_stopping_rounds = 100, eval_metric = "logloss", eval_set = evals, verbose =True)
+
+     fig, ax = plt.subplots(figsize = (10, 6))
+     plot_importance(lgb, ax = ax)
       
       
       
