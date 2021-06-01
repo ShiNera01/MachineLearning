@@ -241,7 +241,7 @@
      reg_alpha : L1 regularization
       
    
-     from lightbgm import LGBMClassifier, plot_importance
+    from lightgbm import LGBMClassifier, plot_importance
      lgb = LGBMClassifier(n_estimators = 400)
      lgb.fit(x_train, y_train)
      lgb_pred = lgb.predict(x_test)
