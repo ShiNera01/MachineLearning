@@ -13,15 +13,15 @@
       
       scikit learn의 ensemble패키지로 이용
       
-      import pandas as pd
-      import numpy as np
-      import matplotlib.pyplot asplt
-      import seaborn as sns
+        import pandas as pd
+        import numpy as np
+        import matplotlib.pyplot asplt
+        import seaborn as sns
       
-      from sklearn.tree import DecisionTreeClassifier
-      from sklearn.ensemble import RandomForestClassifier
-      from sklearn.model_selection import train_test_split
-      from sklearn.metrics import accuracy_score
+        from sklearn.tree import DecisionTreeClassifier
+        from sklearn.ensemble import RandomForestClassifier
+        from sklearn.model_selection import train_test_split
+        from sklearn.metrics import accuracy_score
       
       
       
